@@ -1,0 +1,6 @@
+ 0 es un entero
+ x10u es un identificador
+ 0345 es un entero
+ l es un identificador
+ 12342 es un entero
+ ul es un identificador
