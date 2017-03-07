@@ -1,0 +1,3 @@
+0 "cl"
+1 "esto"
+2 "ola k ase"
