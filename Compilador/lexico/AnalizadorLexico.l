@@ -28,10 +28,14 @@ void imprime(); //Declaracion de funciones usadas posteriormente
 void tamanioIdenti(char* cadena);//Declaracion de funciones usadas posteriormente
 int identificador(char* cadena);//Declaracion de funciones usadas posteriormente
 int cadenaalm(char* cadena);//Declaracion de funciones usadas posteriormente
-const char *opAsignacion[] = {"=","+=","-=","*=","/=","%=","&=","^=","|=",">>=","<<="}; //Cadenas que almacenan los valores a comprar de las tablas 
+char cadAtomos[500];
+int avanzeAtomos = 0;
+const char *opAsignacion[] = {"=","+=","-=","*=","/=","%=","&=","^=","|=",">>=","<<="}; //Cadenas que almacenan los valores a comprar de las tablas
+const char opAsigToken[] = {'=','m','n','p','d','s','&','^','|','y','z'};
 const char *opRelacion[] = {">",">=","<","<=","==","!="};//Cadenas que almacenan los valores a comprar de las tablas
+const char opRelToken[] = {'>','g','<','l','q','!'};
 const char *palReservada[] = {"DOBLE","ENTERO","HAZ","MIENTRAS","PARA","REAL","SI","SINO"};//Cadenas que almacenan los valores a comprar de las tablas
-
+const char palResToken[] = {'o','t','h','w','f','x','i','j'};
 %}
 dig     [0-9]
 let     [a-z]
@@ -40,13 +44,13 @@ oparit  "+"|"-"|"*"|"/"|"%"{1,1}
 opespe  "%"|"&"|"^"|\||"<<"|">>"
 opasig  ({oparit})"="|({opespe})"="|"="
 oprela  ">"|"<"|">="|"<="|"=="|"!="
-simesp  ";"|","|"("|")"|"["|"]"
+simesp  ":"|";"|","|"("|")"|"["|"]"
 palres  DOBLE|ENTERO|HAZ|MIENTRAS|PARA|REAL|SI|SINO
 identi  {let}+({dig}|{let})*
-decima  [1-9]{dig}+
+decima  [1-9]{dig}*|0
 octals  0[1-7]+
 hexade  0(x|X)({dig}|[a-f]|[A-F])+
-reales  0|{dig}+\.{dig}*
+reales  {dig}+\.{dig}*
 cadena  \"(\\.|[^\\"])*\"
 saltos  [ \n\t\r\f]+
 coment  \@.*
@@ -56,38 +60,67 @@ coment  \@.*
            for(i=0;i<=10;i++){
 			   if(strcmp(yytext,opAsignacion[i])== 0){
 			   fprintf(archSal,"%d\n",i);
+			   cadAtomos[avanzeAtomos]=opAsigToken[i];
 		       }
              }
+			 avanzeAtomos++;
 	       }
 {oprela}  {int i;
 	       fprintf(archSal,"1 ");
            for(i=0;i<=6;i++){
 			   if(strcmp(yytext,opRelacion[i])== 0){
 			   fprintf(archSal,"%d\n",i);
+			   cadAtomos[avanzeAtomos]=opRelToken[i];
 		       }
              }
+			 avanzeAtomos++;
 	       }
 {identi}  {fprintf(archSal,"2 ");
 		   fprintf(archSal,"%d\n",identificador(yytext));
 	       contidenti++;
+		   cadAtomos[avanzeAtomos] = 'a';
+		   avanzeAtomos++;
 	       }
 {palres}  {int i;
 	       fprintf(archSal,"3 ");
            for(i=0;i<=8;i++){
 			   if(strcmp(yytext,palReservada[i])== 0){
 			   fprintf(archSal,"%d\n",i);
-		       }
+			   cadAtomos[avanzeAtomos]=palResToken[i];
+			   }
              }
+			 avanzeAtomos++;
 	       }
-{simesp}  {fprintf(archSal,"4 %s\n",yytext);}
+{simesp}  {fprintf(archSal,"4 %s\n",yytext);
+			cadAtomos[avanzeAtomos] = yytext[0];
+			avanzeAtomos++;
+		   }
 {cadena}  {fprintf(archSal,"5 ");
            fprintf(archSal,"%d\n",cadenaalm(yytext));
-	       contcadena++;}
-{oparit}  {fprintf(archSal,"6 %s\n",yytext);}
-{decima}  {fprintf(archSal,"7 %s\n",yytext);}
-{octals}  {fprintf(archSal,"7 %s\n",yytext);}
-{hexade}  {fprintf(archSal,"7 %s\n",yytext);}
-{reales}  {fprintf(archSal,"8 %s\n",yytext);}
+	       contcadena++;
+		   cadAtomos[avanzeAtomos] = '"';
+		   avanzeAtomos++;
+	   	   }
+{oparit}  {fprintf(archSal,"6 %s\n",yytext);
+			cadAtomos[avanzeAtomos] = yytext[0];
+			avanzeAtomos++;
+		  }
+{decima}  {fprintf(archSal,"7 %s\n",yytext);
+			cadAtomos[avanzeAtomos] = 'e';
+			avanzeAtomos++;
+			}
+{octals}  {fprintf(archSal,"7 %s\n",yytext);
+			cadAtomos[avanzeAtomos] = 'e';
+			avanzeAtomos++;
+		   }
+{hexade}  {fprintf(archSal,"7 %s\n",yytext);
+			cadAtomos[avanzeAtomos] = 'e';
+			avanzeAtomos++;
+			}
+{reales}  {fprintf(archSal,"8 %s\n",yytext);
+			cadAtomos[avanzeAtomos] = 'r';
+			avanzeAtomos++;
+			}
 {coment}  ;
 {saltos}  ;
 .         {fprintf(archErr,"Aqui hay un error %s -- Podras continuar cuando lo corrijas\n",yytext);};
@@ -168,6 +201,14 @@ void imprime(){ //imprime la tabla de simbolos y la tabla de cadenas en archivo
 				fprintf(archTC,"%d %s\n",tcadenas[i].posicion,tcadenas[i].str);
 			}
 	} //El algoritmos a pesar de tener dos fors sigue siendo de complejidad O(n)
+	
+void mostrarCadAtomos(){
+	int i = 0;
+	for(i=0;i<500;i++){
+		printf("%c",cadAtomos[i]);
+	}
+	printf("\n");
+}
 
 
 int main(int argc, char *argv[]) //funcion Main
@@ -180,4 +221,5 @@ int main(int argc, char *argv[]) //funcion Main
      yylex(); //usa funcion yylex
      fclose(archSal); //cierra el archivo
 	 imprime(); //imprime en archivos
+	 mostrarCadAtomos();
 }

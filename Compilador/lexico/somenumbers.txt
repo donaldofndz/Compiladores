@@ -1,4 +1,4 @@
 % <<= != 0x1|=0u ^ | / * 0345lcl  0x "cl"123 42ul + "esto" <<< >
-> <<= &- ++++ = += 1.3C === SINO lcl matche sese 0x23adf 3such 24 17strings as! @esto es una comentario 123
+> <<= &- ++++ = += 1.3C === SINO lcl matche 2.1 0 sese 0x23adf 3such 24 17strings as! @esto es una comentario 123
 =>= abefef, ef1e2fef, 	cdef, 
 0XAF3 "ola k ase"or cddd; but not 077 abc, abcd, or abcdef.

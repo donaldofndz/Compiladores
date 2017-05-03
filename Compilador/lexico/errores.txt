@@ -1,7 +1,0 @@
-Aqui hay un error ^ -- Podras continuar cuando lo corrijas
-Aqui hay un error | -- Podras continuar cuando lo corrijas
-Aqui hay un error & -- Podras continuar cuando lo corrijas
-Aqui hay un error C -- Podras continuar cuando lo corrijas
-Aqui hay un error 3 -- Podras continuar cuando lo corrijas
-Aqui hay un error ! -- Podras continuar cuando lo corrijas
-Aqui hay un error . -- Podras continuar cuando lo corrijas
