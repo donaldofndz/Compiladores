@@ -533,6 +533,33 @@ struct tablaCadenas{ //Estructura que guarda la tabla de cadenas con sus repecti
 	char *str; //Cadena que almacena las cadenas de tamaño dinamico
 };
 
+void p11();
+void fun11();
+void lf11();
+void arg11();
+void tipo11();
+void la11();
+void bs11();
+void ls11();
+void s11();
+void dec11();
+void asig11();
+void m11();
+void h11();
+void para11();
+void si11();
+void li11();
+void opAsig11();
+void er11();
+void erc11();
+void opr11();
+void e11();
+void t11();
+void ep11();
+void tp11();
+void f11();
+void anSint();
+
 int contidenti = 0,contcadena = 0; //Variables que contabilisan las cadenas
 struct tablaSimbolos tsimbolos[500]; //variable que almacena los simbolos, esta tabla puede almacenar la cantidad de elementos que se deseen guardar
 struct tablaCadenas tcadenas[500]; //variable que almacena las cadenas, esta tabla puede almacenar la cantidad de elementos que se deseen guardar
@@ -541,14 +568,14 @@ void tamanioIdenti(char* cadena);//Declaracion de funciones usadas posteriorment
 int identificador(char* cadena);//Declaracion de funciones usadas posteriormente
 int cadenaalm(char* cadena);//Declaracion de funciones usadas posteriormente
 char cadAtomos[500];
-int avanzeAtomos = 0;
+int contadorCadena = 0;
 const char *opAsignacion[] = {"=","+=","-=","*=","/=","%=","&=","^=","|=",">>=","<<="}; //Cadenas que almacenan los valores a comprar de las tablas
 const char opAsigToken[] = {'=','m','n','p','d','s','&','^','|','y','z'};
 const char *opRelacion[] = {">",">=","<","<=","==","!="};//Cadenas que almacenan los valores a comprar de las tablas
 const char opRelToken[] = {'>','g','<','l','q','!'};
 const char *palReservada[] = {"DOBLE","ENTERO","HAZ","MIENTRAS","PARA","REAL","SI","SINO"};//Cadenas que almacenan los valores a comprar de las tablas
 const char palResToken[] = {'o','t','h','w','f','x','i','j'};
-#line 552 "lex.yy.c"
+#line 579 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -730,9 +757,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 57 "AnalizadorLexico.l"
+#line 84 "AnalizadorLexico.l"
 
-#line 736 "lex.yy.c"
+#line 763 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -817,137 +844,137 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 58 "AnalizadorLexico.l"
+#line 85 "AnalizadorLexico.l"
 {int i;
 	       fprintf(archSal,"0 ");
            for(i=0;i<=10;i++){
 			   if(strcmp(yytext,opAsignacion[i])== 0){
 			   fprintf(archSal,"%d\n",i);
-			   cadAtomos[avanzeAtomos]=opAsigToken[i];
+			   cadAtomos[contadorCadena]=opAsigToken[i];
 		       }
              }
-			 avanzeAtomos++;
+			 contadorCadena++;
 	       }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 68 "AnalizadorLexico.l"
+#line 95 "AnalizadorLexico.l"
 {int i;
 	       fprintf(archSal,"1 ");
            for(i=0;i<=6;i++){
 			   if(strcmp(yytext,opRelacion[i])== 0){
 			   fprintf(archSal,"%d\n",i);
-			   cadAtomos[avanzeAtomos]=opRelToken[i];
+			   cadAtomos[contadorCadena]=opRelToken[i];
 		       }
              }
-			 avanzeAtomos++;
+			 contadorCadena++;
 	       }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 78 "AnalizadorLexico.l"
+#line 105 "AnalizadorLexico.l"
 {fprintf(archSal,"2 ");
 		   fprintf(archSal,"%d\n",identificador(yytext));
 	       contidenti++;
-		   cadAtomos[avanzeAtomos] = 'a';
-		   avanzeAtomos++;
+		   cadAtomos[contadorCadena] = 'a';
+		   contadorCadena++;
 	       }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 84 "AnalizadorLexico.l"
+#line 111 "AnalizadorLexico.l"
 {int i;
 	       fprintf(archSal,"3 ");
            for(i=0;i<=8;i++){
 			   if(strcmp(yytext,palReservada[i])== 0){
 			   fprintf(archSal,"%d\n",i);
-			   cadAtomos[avanzeAtomos]=palResToken[i];
+			   cadAtomos[contadorCadena]=palResToken[i];
 			   }
              }
-			 avanzeAtomos++;
+			 contadorCadena++;
 	       }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 94 "AnalizadorLexico.l"
+#line 121 "AnalizadorLexico.l"
 {fprintf(archSal,"4 %s\n",yytext);
-			cadAtomos[avanzeAtomos] = yytext[0];
-			avanzeAtomos++;
+			cadAtomos[contadorCadena] = yytext[0];
+			contadorCadena++;
 		   }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 98 "AnalizadorLexico.l"
+#line 125 "AnalizadorLexico.l"
 {fprintf(archSal,"5 ");
            fprintf(archSal,"%d\n",cadenaalm(yytext));
 	       contcadena++;
-		   cadAtomos[avanzeAtomos] = '"';
-		   avanzeAtomos++;
+		   cadAtomos[contadorCadena] = '"';
+		   contadorCadena++;
 	   	   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 104 "AnalizadorLexico.l"
+#line 131 "AnalizadorLexico.l"
 {fprintf(archSal,"6 %s\n",yytext);
-			cadAtomos[avanzeAtomos] = yytext[0];
-			avanzeAtomos++;
+			cadAtomos[contadorCadena] = yytext[0];
+			contadorCadena++;
 		  }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 108 "AnalizadorLexico.l"
+#line 135 "AnalizadorLexico.l"
 {fprintf(archSal,"7 %s\n",yytext);
-			cadAtomos[avanzeAtomos] = 'e';
-			avanzeAtomos++;
+			cadAtomos[contadorCadena] = 'e';
+			contadorCadena++;
 			}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 112 "AnalizadorLexico.l"
+#line 139 "AnalizadorLexico.l"
 {fprintf(archSal,"7 %s\n",yytext);
-			cadAtomos[avanzeAtomos] = 'e';
-			avanzeAtomos++;
+			cadAtomos[contadorCadena] = 'e';
+			contadorCadena++;
 		   }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 116 "AnalizadorLexico.l"
+#line 143 "AnalizadorLexico.l"
 {fprintf(archSal,"7 %s\n",yytext);
-			cadAtomos[avanzeAtomos] = 'e';
-			avanzeAtomos++;
+			cadAtomos[contadorCadena] = 'e';
+			contadorCadena++;
 			}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 120 "AnalizadorLexico.l"
+#line 147 "AnalizadorLexico.l"
 {fprintf(archSal,"8 %s\n",yytext);
-			cadAtomos[avanzeAtomos] = 'r';
-			avanzeAtomos++;
+			cadAtomos[contadorCadena] = 'r';
+			contadorCadena++;
 			}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 124 "AnalizadorLexico.l"
+#line 151 "AnalizadorLexico.l"
 ;
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 125 "AnalizadorLexico.l"
+#line 152 "AnalizadorLexico.l"
 ;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 126 "AnalizadorLexico.l"
+#line 153 "AnalizadorLexico.l"
 {fprintf(archErr,"Aqui hay un error %s -- Podras continuar cuando lo corrijas\n",yytext);};
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 127 "AnalizadorLexico.l"
+#line 154 "AnalizadorLexico.l"
 ECHO;
 	YY_BREAK
-#line 951 "lex.yy.c"
+#line 978 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1944,7 +1971,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 127 "AnalizadorLexico.l"
+#line 154 "AnalizadorLexico.l"
 
 
 
@@ -2025,12 +2052,630 @@ void imprime(){ //imprime la tabla de simbolos y la tabla de cadenas en archivo
 	} //El algoritmos a pesar de tener dos fors sigue siendo de complejidad O(n)
 	
 void mostrarCadAtomos(){
+	cadAtomos[contadorCadena++] = '#';
 	int i = 0;
 	for(i=0;i<500;i++){
 		printf("%c",cadAtomos[i]);
 	}
 	printf("\n");
 }
+
+//aqui empieza la parte del analizador sintatctico
+
+void p11(){
+	//printf("funcion p11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == 'a'){
+		fun11();
+		lf11();
+		return;
+	}else{
+		printf("Algo anda mal, esperaba un identificador\n");
+		printf("funcion p11\n");
+	}
+}
+
+void lf11(){
+	//printf("funcion lf11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena] == 'a'){
+		contadorCadena++;
+		fun11();
+		lf11();
+		return;
+	}else if(cadAtomos[contadorCadena] == '#'){
+		return;
+	}else{
+		printf("%c\n",cadAtomos[contadorCadena]);
+		printf("Algo anda mal, esperaba un identificador\n");
+		printf("funcion lf11\n");
+	}
+}
+
+//ESTA FUNCION PODRIA TENER UN ERROR POR LA AUSENCIA DE RETURN
+void fun11(){
+	//printf("funcion fun11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena] == 'a'){
+		contadorCadena++;
+		if (cadAtomos[contadorCadena] == '('){
+			contadorCadena++;
+			arg11();
+			if(cadAtomos[contadorCadena] == ')'){
+				contadorCadena++;
+				if(cadAtomos[contadorCadena] == ':'){
+					contadorCadena++;
+					tipo11();
+					if(cadAtomos[contadorCadena] == '['){
+						contadorCadena++;
+						bs11();
+						if(cadAtomos[contadorCadena] == ']'){
+							contadorCadena++;
+						}else{
+							printf("Esperaba un corchete que cierra\n");
+							printf("funcion fun11\n");
+						}
+					}else{
+						printf("Esperaba un corchete que abre\n");
+						printf("funcion fun11\n");
+					}
+				}
+			}else{
+				printf("Esperaba un parentesis que cierra\n");
+				printf("funcion fun11\n");
+			}
+		}else{
+			printf("Estaba espernado un parentesis que abre\n");
+			printf("funcion fun11\n");
+		}
+	return;
+	}else{
+		printf("Esperaba un identificador\n");
+		printf("funcion fun11\n");
+	}
+}
+
+void arg11(){
+	//printf("funcion arg11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena] == 'a'){
+		contadorCadena++;
+		if (cadAtomos[contadorCadena] == ':'){
+			contadorCadena++;
+			tipo11();
+			la11();
+			return;
+		}else{
+			printf("Esperaba dos puntos\n");
+			printf("funcion arg11\n");
+		}
+	}else if(cadAtomos[contadorCadena] == ')'){
+		return;
+	}else{
+		printf("Esperaba un identificador\n");
+		printf("funcion arg11\n");
+	}
+}
+
+//este se llama li
+void la11(){
+	//printf("funcion la11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == ','){
+		contadorCadena++;
+		if(cadAtomos[contadorCadena] == 'a'){
+			contadorCadena++;
+			if(cadAtomos[contadorCadena] == ':'){
+				contadorCadena++;
+				tipo11();
+				la11();
+			}else{
+				printf("Esperaba dos puntos\n");
+				printf("funcion la11\n");
+			}
+		}else{
+			printf("Esperaba un identificador\n");
+			printf("funcion la11\n");
+		}
+	return;
+	}else if(cadAtomos[contadorCadena] == ')'){
+		return;
+	}else{
+		printf("Esperaba una coma\n");
+		printf("funcion la11\n");
+	}
+}
+
+void tipo11(){
+	//printf("funcion tipo11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena]== 'o' || cadAtomos[contadorCadena]== 't' || cadAtomos[contadorCadena]== 'x'){
+		contadorCadena++;
+		return;
+	}else{
+		printf("Esperaba una constante numerica");
+		printf("funcion la11\n");
+	}
+}
+//En esta funcion puede ser que falten ":"
+void bs11(){
+	//printf("funcion bs11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena]== 'o' || cadAtomos[contadorCadena]== 't' || cadAtomos[contadorCadena]== 'x' || cadAtomos[contadorCadena]== 'a' || cadAtomos[contadorCadena]== 'w' || cadAtomos[contadorCadena]== 'h' || cadAtomos[contadorCadena]== 'f' || cadAtomos[contadorCadena]== 'i'){
+		s11();
+		ls11();
+		return;
+	}else{
+		printf("Encuentro un error\n");
+		printf("funcion bs11\n");
+	}
+	return;
+}
+
+//En esta funcion puede ser que falten ":"
+void ls11(){
+	//printf("funcion ls11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena]== 'o' || cadAtomos[contadorCadena]== 't' || cadAtomos[contadorCadena]== 'x' || cadAtomos[contadorCadena]== 'a' || cadAtomos[contadorCadena]== 'w' || cadAtomos[contadorCadena]== 'h' || cadAtomos[contadorCadena]== 'f' || cadAtomos[contadorCadena]== 'i'){
+		s11();
+		ls11();
+		return;
+	}else if(cadAtomos[contadorCadena]== ']'){
+		return;
+	}else{
+		printf("No esperaba esta entrada\n");
+		printf("funcion ls11\n");
+	}
+}
+
+//checar return
+void s11(){
+	//printf("funcion s11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena]== 'o' || cadAtomos[contadorCadena]== 't' || cadAtomos[contadorCadena]== 'x'){
+		dec11();
+		return;
+	}else if(cadAtomos[contadorCadena]== 'a'){
+		asig11();
+		return;
+	}else if (cadAtomos[contadorCadena]== 'w'){
+		m11();
+		return;	
+	}else if(cadAtomos[contadorCadena]== 'h'){
+		h11();
+		return;
+	}else if(cadAtomos[contadorCadena]== 'f'){
+		para11();
+		return;
+	}else if(cadAtomos[contadorCadena]== 'i'){
+		si11();
+		return;
+	}else{
+		printf("No esperaba esa entrada\n");
+		printf("funcion s11\n");
+	}
+}
+
+void dec11(){
+	//printf("funcion dec11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena]== 'o' || cadAtomos[contadorCadena]== 't' || cadAtomos[contadorCadena]== 'x'){
+		tipo11();
+		if(cadAtomos[contadorCadena] == ':'){
+			contadorCadena++;
+			if(cadAtomos[contadorCadena] == 'a'){
+				contadorCadena++;
+				li11();
+			}else{
+				printf("Esperaba un identificador\n");
+				printf("funcion dec11\n");
+			}
+		}else{
+			printf("Esperaba dos puntos\n");
+			printf("funcion dec11\n");
+		}
+	}else{
+		printf("No esperaba esta entrada\n");
+		printf("funcion dec11\n");
+	}
+}
+
+void li11(){
+	//printf("funcion li11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == ','){
+		contadorCadena++;
+		if (cadAtomos[contadorCadena] == 'a'){
+			li11();
+			return;
+		}else{
+		}
+	// otxawhfi]
+	}else if(cadAtomos[contadorCadena]== 'o' || cadAtomos[contadorCadena]== 't' || cadAtomos[contadorCadena]== 'x' || cadAtomos[contadorCadena]== 'a' || cadAtomos[contadorCadena]== 'w' || cadAtomos[contadorCadena]== 'h' || cadAtomos[contadorCadena]== 'f' || cadAtomos[contadorCadena]== 'i' || cadAtomos[contadorCadena]== ']'){
+		return;
+	}else{
+		printf("No esperaba esta entrada\n");
+
+	}
+}
+
+void asig11(){
+	//printf("funcion asig11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena] == 'a'){
+		contadorCadena++;
+		opAsig11();
+		e11();
+		if(cadAtomos[contadorCadena] == ';'){
+			contadorCadena++;
+			return;
+		}else{
+			printf("Esperaba punto y coma\n");
+			printf("funcion asig11\n");
+		}
+	}else{
+		printf("Esperaba un identificador\n");
+	}
+}
+
+
+void opAsig11(){
+	//printf("funcion opAsig11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if (cadAtomos[contadorCadena] == '='){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'm'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'n'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'p'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'd'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 's'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == '&'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == '^'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == '|'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'y'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'z'){
+		contadorCadena++;
+		return;
+	}else if(cadAtomos[contadorCadena] == 'm'){
+		contadorCadena++;
+		return;
+	}else{
+		printf("Esperaba un identificador diferente\n");
+		printf("opAsig11\n");
+	}
+}
+
+void m11(){
+	//printf("funcion m11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == 'w'){
+		contadorCadena++;
+		if(cadAtomos[contadorCadena] == '('){
+			contadorCadena++;
+			er11();
+			if(cadAtomos[contadorCadena] == ')'){
+				contadorCadena++;
+				if (cadAtomos[contadorCadena]== '['){
+					contadorCadena++;
+					bs11();
+					if (cadAtomos[contadorCadena] == ']'){
+						contadorCadena++;
+					}else{
+						printf("Esperaba un corchete de cerradura\n");
+						printf("funcion m11\n");
+					}
+				}else{
+					printf("Esperaba un parentesis cuadrado de cerradura\n");
+					printf("funcion m11\n");
+				}
+			}else{
+				printf("Esperaba un parentesis de cerradura\n");
+				printf("funcion m11\n");
+			}
+		}else{
+			printf("Esperaba un parentesis\n");
+			printf("funcion m11\n");
+		}
+		return;
+	}
+}
+
+void h11(){
+	//printf("funcion h11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == 'h'){
+		contadorCadena++;
+		if(cadAtomos[contadorCadena] == '['){
+			contadorCadena++;
+			bs11();
+			if(cadAtomos[contadorCadena] == ']'){
+				contadorCadena++;
+				if(cadAtomos[contadorCadena] == 'w'){
+					contadorCadena++;
+					if(cadAtomos[contadorCadena] == '('){
+						contadorCadena++;
+						er11();
+						if(cadAtomos[contadorCadena] == ')'){
+							contadorCadena++;
+							if(cadAtomos[contadorCadena] == ';'){
+								contadorCadena++;
+							}else{
+								printf("Esperaba dos puntos\n");
+								printf("funcion h11\n");
+							}
+						}else{
+							printf("Esperaba parentesis de cerradura\n");
+							printf("funcion h11\n");
+						}
+					}else{
+						printf("Esperaba parentesis\n");
+						printf("funcion h11\n");
+					}
+				}else{
+					printf("No era la entrada que esperaba \n");
+					printf("funcion h11\n");
+				}
+			}else{
+				printf("Esperaba corchetes de cerradura\n");
+				printf("funcion h11\n");
+			}
+		}else{
+			printf("Esperaba corchetes de apertura\n");
+			printf("funcion h11\n");
+		}
+	}else{
+		printf("No era la entrada que esperaba \n");
+		printf("funcion h11\n");
+	}
+}
+
+void para11(){
+	//printf("funcion para11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+		if(cadAtomos[contadorCadena] == 'f'){
+		contadorCadena++;
+		if(cadAtomos[contadorCadena] == '('){
+			contadorCadena++;
+			asig11();
+			er11();
+			if(cadAtomos[contadorCadena] == ';'){
+				contadorCadena++;
+				asig11();
+				if(cadAtomos[contadorCadena] == ')'){
+					contadorCadena++;
+					if(cadAtomos[contadorCadena] == '['){
+						contadorCadena++;
+						bs11();
+						if(cadAtomos[contadorCadena] == ']'){
+							contadorCadena++;
+						}else{
+							printf("Esperaba corchetes de cerradura\n");
+							printf("funcion para11\n");
+						}
+					}else{
+						printf("Esperaba corchetes de apertura\n");
+						printf("funcion para11\n");
+					}
+				}else{
+					printf("Esperaba parentesis de cerradura \n");
+					printf("funcion para11\n");
+				}
+			}else{
+				printf("Esperaba dos puntos\n");
+				printf("funcion para11\n");
+			}
+		}else{
+			printf("Esperaba parentesis de apertura\n");
+			printf("funcion para11\n");
+		}
+	}else{
+		printf("No era la entrada que esperaba \n");
+		printf("funcion para11\n");
+	}
+}
+
+
+void si11(){
+	//printf("funcion si11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == 'i'){
+		contadorCadena++;
+		er11();
+		if(cadAtomos[contadorCadena] == '['){
+			contadorCadena++;
+			bs11();
+			if(cadAtomos[contadorCadena] == ']'){
+				contadorCadena++;
+				if(cadAtomos[contadorCadena] == 'j'){
+					contadorCadena++;
+					if(cadAtomos[contadorCadena] == '['){
+						contadorCadena++;
+						bs11();
+						if(cadAtomos[contadorCadena] == ']'){
+							contadorCadena++;
+						}else{
+							printf("Esperaba un corchete de cerradura\n");
+							printf("funcion si11\n");
+						}
+					}else{
+							printf("Esperaba un corchete de apertura\n");
+							printf("funcion si11\n");
+					}
+				}else{
+					printf("No era la entrada que esperaba\n");
+					printf("funcion si11\n");
+				}
+			}else{
+				printf("Esperaba un corchete de cerradura\n");
+				printf("funcion si11\n");
+			}
+		}else{
+			printf("Esperaba un corchete de apertura\n");
+			printf("funcion si11\n");
+		}
+	return;
+	}else{
+		printf("No era la entrada que esperaba\n");
+		printf("funcion si11\n");
+	}
+}
+
+void er11(){
+	//printf("funcion er11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == '(' || cadAtomos[contadorCadena] == 'a' || cadAtomos[contadorCadena] == 'e' || cadAtomos[contadorCadena] == 'r'){
+		e11();
+		erc11();
+		return;
+	}else{
+		printf("No era la entrada que esperaba\n");
+		printf("funcion er11\n");
+	}
+}
+
+//{>g<lq!} 
+// );[
+
+void erc11(){
+	//printf("funcion erc11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == '>' || cadAtomos[contadorCadena] == 'g' || cadAtomos[contadorCadena] == '<' || cadAtomos[contadorCadena] == 'l' || cadAtomos[contadorCadena] == 'q'|| cadAtomos[contadorCadena] == '!'){
+		opr11();
+		e11();
+		return;
+	}else if (cadAtomos[contadorCadena] == ')' || cadAtomos[contadorCadena] == ';' || cadAtomos[contadorCadena] == '['){
+		return;
+	}else{
+		printf("No era la entrada que esperaba\n");
+		printf("funcion erc11\n");
+	}
+}
+
+void opr11(){
+	//printf("funcion opr11\n");
+	//printf("%c\n",cadAtomos[contadorCadena]);
+	if(cadAtomos[contadorCadena] == '>' || cadAtomos[contadorCadena] == 'g' || cadAtomos[contadorCadena] == '<' || cadAtomos[contadorCadena] == 'l' || cadAtomos[contadorCadena] == 'q'|| cadAtomos[contadorCadena] == '!'){
+		contadorCadena++;
+	}else{
+		printf("No era la entrada que esperaba\n");
+		printf("funcion opr11\n");
+	}
+}
+
+//BIEN
+
+void e11(){
+	//printf("funcion e11\n");
+	//printf("%c\n",cadAtomos[contadorCadena] );
+	if(cadAtomos[contadorCadena] == '(' || cadAtomos[contadorCadena] == 'a' || cadAtomos[contadorCadena] == 'e'|| cadAtomos[contadorCadena] == 'r'){
+		t11();
+		ep11();
+		return;
+	}else{
+		printf("No era la entrada que esperaba\n");
+	}
+}
+
+//BIEN
+//revisar los dos puntos
+void ep11(){
+	//printf("entro eP11\n");
+	//printf("%c\n",cadAtomos[contadorCadena] );
+	if(cadAtomos[contadorCadena] == '+' || cadAtomos[contadorCadena] == '-'){
+		contadorCadena++;
+		t11();
+		ep11();
+		return;
+	}else if(cadAtomos[contadorCadena] == '>' || cadAtomos[contadorCadena] == 'g' || cadAtomos[contadorCadena] == '<' || cadAtomos[contadorCadena] == 'l' || cadAtomos[contadorCadena] == 'q' || cadAtomos[contadorCadena] == '!' || cadAtomos[contadorCadena] == ')' || cadAtomos[contadorCadena] == ';' || cadAtomos[contadorCadena] == '['){
+		return;
+	}else{
+		printf("funcion ep11\n");
+	}
+}
+
+//BIEN
+void t11(){
+	//printf("Entro a t11\n");
+	//printf("%c\n",cadAtomos[contadorCadena] );
+	if(cadAtomos[contadorCadena] == '(' || cadAtomos[contadorCadena] == 'a' || cadAtomos[contadorCadena] == 'e'|| cadAtomos[contadorCadena] == 'r'){
+		f11();
+		tp11();
+		return;
+	}else{
+		printf("funcion t11\n");
+	}
+}
+
+
+void tp11(){
+	//printf("Entro tp11\n");
+	//printf("%c\n",cadAtomos[contadorCadena] );
+	if (cadAtomos[contadorCadena] ==  '*' || cadAtomos[contadorCadena] ==  '/' || cadAtomos[contadorCadena] ==  '%' ){
+		contadorCadena++;
+		f11();
+		tp11();
+		return;
+	}else if(cadAtomos[contadorCadena] == '+' || cadAtomos[contadorCadena] == '-' ||cadAtomos[contadorCadena] == ';' || cadAtomos[contadorCadena] == '>' || cadAtomos[contadorCadena] == 'g' || cadAtomos[contadorCadena] == '<' || cadAtomos[contadorCadena] == 'l' || cadAtomos[contadorCadena] == 'q' || cadAtomos[contadorCadena] == '!' || cadAtomos[contadorCadena] == ')' || cadAtomos[contadorCadena] == '['){
+		return;
+	}else{
+		printf("error4\n");
+	}
+}
+
+
+void f11(){
+	//printf("entro f11\n");
+	//printf("%c\n",cadAtomos[contadorCadena] );
+	if(cadAtomos[contadorCadena] == '('){
+		contadorCadena++;
+		e11();
+		if (cadAtomos[contadorCadena] == ')'){
+			contadorCadena++;
+		}else{
+			printf("error5\n");
+		}
+	}else if (cadAtomos[contadorCadena] == 'a' || cadAtomos[contadorCadena] == 'e' || cadAtomos[contadorCadena] == 'r'){
+		contadorCadena++; // revisar este 
+		return;
+	}else{
+		printf("error6\n");
+	}
+}
+
+
+void anSint(){
+	contadorCadena = 0;
+	//printf("entro anSint\n");
+	p11();
+	//contadorCadena++;
+	//printf("%c\n",cadAtomos[contadorCadena] );
+	if (cadAtomos[contadorCadena] == '#')
+	{
+		printf("LO ACEPTE");
+	}else{
+		printf("LO RECHACE\n");
+	}
+}
+
 
 
 int main(int argc, char *argv[]) //funcion Main
@@ -2043,5 +2688,10 @@ int main(int argc, char *argv[]) //funcion Main
      yylex(); //usa funcion yylex
      fclose(archSal); //cierra el archivo
 	 imprime(); //imprime en archivos
+	 printf("Esta es la cadena de Atomos \n");
 	 mostrarCadAtomos();
+	 printf("Resultado del analizador Sintactico: \n");
+	 anSint();
+	 printf("\n");
+	 //mostrarCadAtomos();
 }
