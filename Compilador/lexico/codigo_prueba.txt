@@ -1,0 +1,52 @@
+principl(x:REAL):ENTERO
+[
+	DOBLE: x,y,z,w
+	ENTERO: q,w,e
+	REAL: a,s,d
+
+	x=y;
+	x+=y;
+	x-=z;
+	x*=w;
+	x/=x;
+	x%=y;
+	x&=z;
+	x^=w;
+	x|=x;
+	x>>=y;
+	x<<=z;
+
+	MIENTRAS(x<5)
+	[
+		x+=1;
+
+		MIENTRAS(x!=d)
+		[
+			q=10;
+		]
+	]
+
+	HAZ
+	[
+		PARA(z=0; z<100; z+=1;)
+		[
+			x%=y;
+		]
+
+		SI d<=2*2+2
+		[
+			a=3.14162549;
+		]
+		SINO
+		[
+			a=0;
+		]
+	]MIENTRAS(q==1);
+
+
+	PARA(a=0;a<2;a+=10;)
+	[
+		b*=a;
+	]
+]
+

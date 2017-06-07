@@ -520,7 +520,7 @@ char *yytext;
 	- Archivo con identificadores
 */
 #include <string.h>
-FILE *archSal, *archErr, *archTI,*archTC; //Se crean los apuntadores que escribiran en archivo
+FILE *archSal, *archErr, *archTI,*archTC,*archTRA; //Se crean los apuntadores que escribiran en archivo
 
 struct tablaSimbolos{ //Estructura donde se guardará la tabal de simbolos asi como sus atributos 
 	int posicion;
@@ -559,6 +559,9 @@ void ep11();
 void tp11();
 void f11();
 void anSint();
+void obtenerTipo();
+void tipos();
+void traductor();
 
 int contidenti = 0,contcadena = 0; //Variables que contabilisan las cadenas
 struct tablaSimbolos tsimbolos[500]; //variable que almacena los simbolos, esta tabla puede almacenar la cantidad de elementos que se deseen guardar
@@ -567,7 +570,9 @@ void imprime(); //Declaracion de funciones usadas posteriormente
 void tamanioIdenti(char* cadena);//Declaracion de funciones usadas posteriormente
 int identificador(char* cadena);//Declaracion de funciones usadas posteriormente
 int cadenaalm(char* cadena);//Declaracion de funciones usadas posteriormente
+int contadorTipo;
 char cadAtomos[500];
+int cadTipos[200];
 int contadorCadena = 0;
 const char *opAsignacion[] = {"=","+=","-=","*=","/=","%=","&=","^=","|=",">>=","<<="}; //Cadenas que almacenan los valores a comprar de las tablas
 const char opAsigToken[] = {'=','m','n','p','d','s','&','^','|','y','z'};
@@ -575,7 +580,7 @@ const char *opRelacion[] = {">",">=","<","<=","==","!="};//Cadenas que almacenan
 const char opRelToken[] = {'>','g','<','l','q','!'};
 const char *palReservada[] = {"DOBLE","ENTERO","HAZ","MIENTRAS","PARA","REAL","SI","SINO"};//Cadenas que almacenan los valores a comprar de las tablas
 const char palResToken[] = {'o','t','h','w','f','x','i','j'};
-#line 579 "lex.yy.c"
+#line 584 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -757,9 +762,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 84 "AnalizadorLexico.l"
+#line 89 "AnalizadorLexico.l"
 
-#line 763 "lex.yy.c"
+#line 768 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -844,7 +849,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 85 "AnalizadorLexico.l"
+#line 90 "AnalizadorLexico.l"
 {int i;
 	       fprintf(archSal,"0 ");
            for(i=0;i<=10;i++){
@@ -858,7 +863,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 95 "AnalizadorLexico.l"
+#line 100 "AnalizadorLexico.l"
 {int i;
 	       fprintf(archSal,"1 ");
            for(i=0;i<=6;i++){
@@ -872,7 +877,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 105 "AnalizadorLexico.l"
+#line 110 "AnalizadorLexico.l"
 {fprintf(archSal,"2 ");
 		   fprintf(archSal,"%d\n",identificador(yytext));
 	       contidenti++;
@@ -882,7 +887,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 111 "AnalizadorLexico.l"
+#line 116 "AnalizadorLexico.l"
 {int i;
 	       fprintf(archSal,"3 ");
            for(i=0;i<=8;i++){
@@ -896,7 +901,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 121 "AnalizadorLexico.l"
+#line 126 "AnalizadorLexico.l"
 {fprintf(archSal,"4 %s\n",yytext);
 			cadAtomos[contadorCadena] = yytext[0];
 			contadorCadena++;
@@ -905,7 +910,7 @@ YY_RULE_SETUP
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 125 "AnalizadorLexico.l"
+#line 130 "AnalizadorLexico.l"
 {fprintf(archSal,"5 ");
            fprintf(archSal,"%d\n",cadenaalm(yytext));
 	       contcadena++;
@@ -915,7 +920,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 131 "AnalizadorLexico.l"
+#line 136 "AnalizadorLexico.l"
 {fprintf(archSal,"6 %s\n",yytext);
 			cadAtomos[contadorCadena] = yytext[0];
 			contadorCadena++;
@@ -923,7 +928,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 135 "AnalizadorLexico.l"
+#line 140 "AnalizadorLexico.l"
 {fprintf(archSal,"7 %s\n",yytext);
 			cadAtomos[contadorCadena] = 'e';
 			contadorCadena++;
@@ -931,7 +936,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 139 "AnalizadorLexico.l"
+#line 144 "AnalizadorLexico.l"
 {fprintf(archSal,"7 %s\n",yytext);
 			cadAtomos[contadorCadena] = 'e';
 			contadorCadena++;
@@ -939,7 +944,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 143 "AnalizadorLexico.l"
+#line 148 "AnalizadorLexico.l"
 {fprintf(archSal,"7 %s\n",yytext);
 			cadAtomos[contadorCadena] = 'e';
 			contadorCadena++;
@@ -947,7 +952,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 147 "AnalizadorLexico.l"
+#line 152 "AnalizadorLexico.l"
 {fprintf(archSal,"8 %s\n",yytext);
 			cadAtomos[contadorCadena] = 'r';
 			contadorCadena++;
@@ -955,26 +960,26 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 151 "AnalizadorLexico.l"
+#line 156 "AnalizadorLexico.l"
 ;
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 152 "AnalizadorLexico.l"
+#line 157 "AnalizadorLexico.l"
 ;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 153 "AnalizadorLexico.l"
+#line 158 "AnalizadorLexico.l"
 {fprintf(archErr,"Aqui hay un error %s -- Podras continuar cuando lo corrijas\n",yytext);};
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 154 "AnalizadorLexico.l"
+#line 159 "AnalizadorLexico.l"
 ECHO;
 	YY_BREAK
-#line 978 "lex.yy.c"
+#line 983 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1971,7 +1976,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 154 "AnalizadorLexico.l"
+#line 159 "AnalizadorLexico.l"
 
 
 
@@ -2044,8 +2049,11 @@ int cadenaalm(char* cadena){ //funcion que agrega cadenas a la tabla de candeas
 void imprime(){ //imprime la tabla de simbolos y la tabla de cadenas en archivo 
 	int i;
 	for(i = 0; i < (contidenti); i++){
-			fprintf(archTI,"%d %s %d \n",tsimbolos[i].posicion, tsimbolos[i].nombre, tsimbolos[i].tipo);
-		}
+			fprintf(archTI,"%d %s %d \n",tsimbolos[i].posicion, tsimbolos[i].nombre, cadTipos[i]);
+			if(cadTipos[i] == -1){
+				printf("\nLa variable: %s - no fue declarada",tsimbolos[i].nombre);
+			}
+		} 
 		for(i = 0; i < (contcadena); i++){
 				fprintf(archTC,"%d %s\n",tcadenas[i].posicion,tcadenas[i].str);
 			}
@@ -2676,6 +2684,138 @@ void anSint(){
 	}
 }
 
+void obtenerTipo(){
+	
+	int i = 0;
+	int j,k,l,var;
+	for(i=0;i<500;i++){
+		if(cadAtomos[i] == 'a'){
+			j = i + 1; 
+			if(cadAtomos[j] == '('){
+				for(k=j;k<500;k++){
+					//printf("Si entro %d", k);
+					if(cadAtomos[k] == ')'){
+						k++;
+						if(cadAtomos[k] == ':'){
+							if(cadAtomos[k+1] == 't'){
+								//printf("\n entero");
+								cadTipos[contadorTipo]= 1;
+								contadorTipo++;
+								break;
+							}
+							if(cadAtomos[k+1] == 'o'){
+								//printf("\n doble");
+								cadTipos[contadorTipo]= 0;
+								contadorTipo++;
+								break;
+							}
+							if(cadAtomos[k+1] == 'x'){
+								//printf("\n real");
+								cadTipos[contadorTipo]= 5;
+								contadorTipo++;
+								break;
+							}					
+						}
+					}
+				}
+			}			
+			else if(cadAtomos[j] == ':'){
+				if(cadAtomos[j+1] == 't'){
+					//printf("\n entero");
+					cadTipos[contadorTipo]= 1;
+					contadorTipo++;
+				}
+				if(cadAtomos[j+1] == 'o'){
+					//printf("\n doble");
+					cadTipos[contadorTipo]= 0;
+					contadorTipo++;
+				}
+				if(cadAtomos[j+1] == 'x'){
+					//printf("\n real");
+					cadTipos[contadorTipo]= 5;
+					contadorTipo++;
+				}				
+			}
+			else{
+				l = i-1;
+				if(cadAtomos[l] == ':' || cadAtomos[l] == ','){
+					for(k=l;k>1;k--){
+						k--;
+						if(cadAtomos[k] == 't'){
+								//printf("\n entero");
+								cadTipos[contadorTipo]= 1;
+								contadorTipo++;
+								break;
+						}
+						if(cadAtomos[k] == 'o'){
+								//printf("\n doble");
+								cadTipos[contadorTipo]= 0;
+								contadorTipo++;
+								break;
+						}
+						if(cadAtomos[k] == 'x'){
+								//printf("\n real");
+								cadTipos[contadorTipo]= 5;
+								contadorTipo++;
+								break;
+						}					
+					}
+				}
+			}
+			
+		}
+		
+	}
+	for(i=contadorTipo;i<100;i++){
+		cadTipos[i]= -1;
+	}
+	
+}
+
+void tipos(){
+	int i;
+	char ch;	
+	rewind(archTI);
+	i=0;
+	while(1)
+	    {
+			for(i=0;i<contadorTipo;i++){
+				printf("%d \n",cadTipos[i]);
+			}
+	    }
+		printf("esta es la i: %d",i);
+}
+
+
+void traductor(){
+	char str1[90], str2[40], str3[20];
+	int caracter,buffer,i,j,bandera=0;
+	char *token;	
+	rewind(yyin);
+	printf("\n");
+	
+	while((caracter = fscanf(yyin,"%s",str1)) != EOF){
+		for(i=0;i<90;i++){
+			if(str1[i] == '['){
+				str1[i] = '{';
+			}
+			if(str1[i] == ']'){
+				str1[i] = '}';
+			} 
+		}
+		if(bandera == 0){
+			fprintf(archTRA,"%s\n",str1);
+			bandera = 0;			
+			}else{
+				bandera = 0;
+			}
+
+    }
+	
+}
+
+
+
 
 
 int main(int argc, char *argv[]) //funcion Main
@@ -2685,12 +2825,15 @@ int main(int argc, char *argv[]) //funcion Main
 	 archErr = fopen("errores.txt","w");//escritura en archivo
 	 archTI = fopen("TablaSimbolos.txt","w");//escritura en archivo
 	 archTC = fopen("TablaCadenas.txt","w");//escritura en archivo
+	 archTRA = fopen("ProgramTraducido.txt","w");//escritura en archivo
      yylex(); //usa funcion yylex
      fclose(archSal); //cierra el archivo
-	 imprime(); //imprime en archivos
 	 printf("Esta es la cadena de Atomos \n");
 	 mostrarCadAtomos();
-	 printf("Resultado del analizador Sintactico: \n");
+	 obtenerTipo();
+	 imprime();
+	 traductor();
+	 //printf("Resultado del analizador Sintactico: \n");
 	 anSint();
 	 printf("\n");
 	 //mostrarCadAtomos();

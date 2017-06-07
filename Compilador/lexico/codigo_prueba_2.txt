@@ -1,0 +1,8 @@
+ejemplo2(x:REAL):ENTERO
+[
+ DOBLE:a,b
+ PARA(a=0; a<10; a+=1;)
+ [
+  b=a*5;
+ ]
+]

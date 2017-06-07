@@ -1,4 +1,12 @@
-0 ejemplo 0 
-1 x 0 
+0 ejemplo2 1 
+1 x 5 
 2 a 0 
 3 b 0 
+4 funx 1 
+5 y 1 
+6 j 1 
+7 num1 1 
+8 num2 1 
+9 ident1 -1 
+10 gg -1 
+11 ident -1 

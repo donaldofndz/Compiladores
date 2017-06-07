@@ -1,0 +1,37 @@
+ejemplo2(x:REAL):ENTERO
+[
+ DOBLE:a,b
+ PARA(a=0; a<10; a+=1;)
+ [
+  b=a*5;
+ ]
+]
+
+funx(y:ENTERO,j:ENTERO):ENTERO
+[
+ ENTERO:num1,num2
+ ident1=95;
+ gg=ident1;
+
+ MIENTRAS(gg<=10)
+ [
+  gg-=1;
+ ]
+ 
+ HAZ
+ [
+  y=ident1+2;
+  PARA(num2=0; num2<10; num2+=1;)
+  [
+   num1=j*5;
+  ]
+ ]MIENTRAS(y!=j);
+ SI num1==num2
+ [
+  ident=j;
+ ]
+ SINO
+ [
+  ident1=gg;
+ ]
+]
